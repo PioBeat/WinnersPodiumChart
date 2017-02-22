@@ -1,0 +1,77 @@
+/**
+ * Stylesheet for winner's podium chart class
+ *
+ * MIT License
+ *
+ * Version: 0.5-alpha-1
+ *
+ * Dominik Grzelak
+ * Copyright 2017
+ */
+
+.wpc-chart {
+    font-family: 'Pangolin', cursive;
+    color: #efefef;
+}
+
+.wpc-main-container {
+    width: 60%;
+    height: 200px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    background-color: #FFA500;
+}
+
+.trophy {
+    display: block;
+    opacity: 0;
+    margin: 0 auto;
+}
+
+.wpc-title {
+    width: 60%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.wpc-podium-column {
+    width: 50%;
+    height: 200px;
+    background-color: #A52A2A;
+    float: left;
+}
+
+.wpc-podium-column > .number {
+    display: table;
+    margin: 0 auto;
+    font-size: 3em;
+    position: relative;
+    top: 45%;
+}
+
+.wpc-footer {
+    width: 60%;
+    margin: 0 auto;
+    background-color: rgba(255, 97, 56, 1);
+    border-bottom: 2px solid #bababa;
+    display: none;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.wpc-footer div {
+    margin-left: 12px;
+    padding-left: 24px;
+    margin-bottom: auto;
+    display: block;
+}
+
+.wpc-footer > .names {
+    vertical-align: middle;
+    background-image: url("../icon/medal.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: left center;
+    margin-bottom: 2px;
+}

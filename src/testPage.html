@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Example - Winner's Podium Chart</title>
+
+    <link rel="stylesheet" href="css/winnersPodiumChart.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Pangolin" rel="stylesheet">
+
+    <script src="libs/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="libs/anime.min.js" type="text/javascript"></script>
+    <script src="winnersPodiumChart.js" type="text/javascript"></script>
+</head>
+<body>
+
+<button id="btn">ReAnimate</button>
+
+<div id="container" style="height: 300px; width: 50%;"></div>
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+        var data = [
+            {
+                name: "Alice",
+                value: 100
+            },
+            {
+                name: "Bob",
+                value: 30
+            },
+            {
+                name: "Carl",
+                value: 50
+            }
+        ];
+
+        var calc = new WinnersPodiumChart($('#container'));
+        calc.data(data);
+        calc.draw();
+        $("#btn").click(calc.animate);
+    });
+</script>
+
+</body>
+</html>
