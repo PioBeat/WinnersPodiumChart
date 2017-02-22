@@ -10,8 +10,8 @@ Uses jquery 3.x and anime.js
 **Features**
 
 * [Add data and display highscore statistics]()
-* [Animation](#specific-animation-parameters)
-* [Customize chart](#Customize)
+* [Animation]()
+* [Customize chart]()
 
 ## Usage
 First, specify a div container:
@@ -66,14 +66,14 @@ myChart.draw();
 
 ## Examples
 
-See the example in [testPage.html](https://github.com/PioBeat/WinnersPodiumChart/src/testPage.html)
+See the example in [testPage.html](https://github.com/PioBeat/WinnersPodiumChart/tree/master/src/testPage.html)
 
 <img src="/art/example_1.gif" width="49%" />
 
 ## Customize
 
 You can change the base style with the css classes. All changes related to css classes and properties
-are referring to the stylesheet [winnersPodiumChart.css](https://github.com/PioBeat/WinnersPodiumChart/src/css/winnersPodiumChart.css).
+are referring to the stylesheet [winnersPodiumChart.css](https://github.com/PioBeat/WinnersPodiumChart/tree/master/src/css/winnersPodiumChart.css).
 
 ### Font
 
