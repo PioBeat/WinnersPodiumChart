@@ -37,10 +37,10 @@
             }
         ];
 
-        var calc = new WinnersPodiumChart($('#container'));
-        calc.data(data);
-        calc.draw();
-        $("#btn").click(calc.animate);
+        var myChart = new WinnersPodiumChart($('#container'));
+        myChart.data(data);
+        myChart.draw();
+        $("#btn").click(myChart.animate);
     });
 </script>
 
