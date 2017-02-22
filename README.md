@@ -1,6 +1,6 @@
 # WinnersPodiumChart
 
-**Version 0.5-alpha-1**
+**Version 0.5-alpha-2**
 
 *WinnersPodiumChart* is a tiny JavaScript library to display highscore statistics in a fun way.
 It can be used to display the winners for the first, second, and third place.
@@ -16,7 +16,7 @@ Uses jquery 3.x and anime.js
 ## Usage
 First, specify a div container:
 
-```
+```html
 <!-- This is where the chart will appended to -->
 <div id="container" style="height: 300px;"></div>
 ```
