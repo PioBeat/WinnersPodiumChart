@@ -3,7 +3,7 @@
  *
  * MIT License
  *
- * Version: 0.5-alpha-1
+ * Version: 0.5-alpha-2
  *
  * Dominik Grzelak
  * Copyright 2017
@@ -17,7 +17,7 @@ var WinnersPodiumChart = (function () {
         this.rootDiv = $element;
 
         _id = "#" + $element.attr("id");
-        console.log("_id", _id);
+        // console.log("_id", _id);
 
         this._titleContainer = $("<div></div>").addClass("wpc-chart wpc-title").appendTo(this.rootDiv);
 
@@ -33,6 +33,7 @@ var WinnersPodiumChart = (function () {
         this._childs = [];
 
         this._maximum = 0;
+        this._minimum = 0;
 
         this._data = null;
         this._colours = ["#425BAB", "#3FAB59", "#8A48AB"];
@@ -75,10 +76,32 @@ var WinnersPodiumChart = (function () {
      * recalculate the maximum value of the data set
      */
     WinnersPodiumChart.prototype.invalidateData = function () {
+        //sort and swap 1st and 2nd place
+        this._data.sort(sortByValue);
+        var buf = this._data[0];
+        this._data[0] = this._data[1];
+        this._data[1] = buf;
+        //add indizes order for names in footer
+        this._data[0].oldIx = 1;
+        this._data[1].oldIx = 0;
+        this._data[2].oldIx = 2;
+
+        //calculate min and max values
         this._maximum = 0;
+        this._minimum = this._data[0].value;
         var self = this;
         $.map(this._data, function (elem, ix) {
             self._maximum = self._maximum < elem.value ? elem.value : self._maximum;
+            self._minimum = self._minimum > elem.value ? elem.value : self._minimum;
+        });
+
+        //normalize values
+        var h = this._innerStepContainer.height();
+        var b = h;
+        var a = h * 0.35;
+        this._data = $.map(this._data, function (elem, ix) {
+            elem.valueNorm = ((elem.value - self._minimum) / (self._maximum - self._minimum)) * (b - a) + a;
+            return elem;
         });
     };
 
@@ -90,8 +113,7 @@ var WinnersPodiumChart = (function () {
         // number of columns to draw
         var n = this._data.length;
 
-
-        var w = Math.floor(100.0 / n + 0.5);
+        var w = Math.floor(100.0 / n + 0.5); // 100 = 100%
 
         _mtArr = [];
         this._data.map(function (obj, i) {
@@ -99,18 +121,17 @@ var WinnersPodiumChart = (function () {
             $(d).attr("data-name", obj.name).attr("data-value", obj.value);
             $(d).addClass("wpc-podium-column");
             $(d).css("background-color", self._colours[i % self._colours.length]);
-
-
             $(d).css("width", (w + (1 / n)) + "%");
 
 
-            var erg = calcNewHeight(obj.value, h, self._maximum);
+            // var erg = calcNewHeight(obj.value, h, self._maximum);
+            // console.log("erg", erg);
+            // var newHeight = erg[0];
+            // var mt = erg[1];
+            var newHeight = obj.valueNorm;
+            var mt = h - obj.valueNorm;
 
-            var newHeight = erg[0];
-            var mt = erg[1];
-            // $(d).css("left", leftValue);
             $(d).css("height", newHeight + "px");
-
             $(d).css("margin-top", h + "px");
 
             var numdiv = $("<div></div>");
@@ -124,7 +145,11 @@ var WinnersPodiumChart = (function () {
             _mtArr.push(mt);
 
             var dn = $("<div class='names'></div>");
-            var name = $("<span>" + obj.name + "</span>");
+            var objToFind = $.grep(self._data, function (e) {
+                return e.oldIx == i;
+            });
+            var name = $("<span>" + objToFind[0].name + "</span>");
+            // var name = $("<span>" + self._data[i*0.5 + 1].name + "</span>");
             name.appendTo(dn);
 
             dn.appendTo(self._footerContainer);
@@ -156,6 +181,16 @@ var WinnersPodiumChart = (function () {
             loop: false
         });
     };
+
+    /**
+     * sort function for the data set (descending)
+     * @return {number}
+     */
+    function sortByValue(a, b) {
+        var x = a.value;
+        var y = b.value;
+        return ((x > y) ? -1 : ((x < y) ? 1 : 0));
+    }
 
     /**
      * helper function to animate the trophy above the chart
@@ -192,20 +227,20 @@ var WinnersPodiumChart = (function () {
         });
     }
 
-    /**
-     * helper function to calculate the column height in respect to the div container height.
-     * The resulting top margin is also returned because it is the css property which is animated.
-     * @param itemHeight
-     * @param h
-     * @param maximum
-     * @returns {[*,*]}
-     */
-    function calcNewHeight(itemHeight, h, maximum) {
-        var frac = itemHeight / maximum;
-        var newHeight = h * frac;
-        var mt = h - newHeight;
-        return [newHeight, mt];
-    }
+    // /**
+    //  * helper function to calculate the column height in respect to the div container height.
+    //  * The resulting top margin is also returned because it is the css property which is animated.
+    //  * @param itemHeight
+    //  * @param h
+    //  * @param maximum
+    //  * @returns {[*,*]}
+    //  */
+    // function calcNewHeight(itemHeight, h, maximum) {
+    //     var frac = itemHeight / maximum;
+    //     var newHeight = h * frac;
+    //     var mt = h - newHeight;
+    //     return [newHeight, mt];
+    // }
 
     return WinnersPodiumChart;
 })();
