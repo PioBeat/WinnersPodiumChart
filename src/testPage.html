@@ -16,8 +16,6 @@
 <button id="btn">ReAnimate</button>
 
 <div id="container" style="height: 300px; width: 50%;"></div>
-<hr/>
-<div id="container2" style="height: 200px; width: 50%;"></div>
 
 <script type="text/javascript">
 
@@ -42,10 +40,9 @@
         myChart.data(data);
         myChart.draw();
 
-        var myChart2 = new WinnersPodiumChart($('#container2'));
-        myChart2.data(data);
-        myChart2.draw();
-        $("#btn").click(myChart.animate);
+        $("#btn").click(function () {
+            myChart.reAnimate();
+        });
     });
 </script>
 
