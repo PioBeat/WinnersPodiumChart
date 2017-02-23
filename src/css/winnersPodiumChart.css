@@ -3,7 +3,7 @@
  *
  * MIT License
  *
- * Version: 0.5-alpha-2
+ * Version: 0.5-beta-1
  *
  * Dominik Grzelak
  * Copyright 2017
