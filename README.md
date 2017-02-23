@@ -82,7 +82,7 @@ Edit *font-family* property of css class ``.wpc-chart``
 ### Change colours
 You can supply an array of colour values to the chart class with
 ```javascript
-myChart.colours(["#ffee21", "#eeffaa", "#fc3321"]);
+myChart.colours(["#425BAB", "#3FAB59", "#8A48AB"]);
 ```
 The colours will be recycled if less than three colours are specified. Up to three colours are supported, more colours will not be used.
 They are applied in the following way (from left to right): second place, first place, third place.
@@ -106,7 +106,7 @@ Reset the animation. Useful if the chart is supplied with new data.
 Set new data and call animate:
 ```javascript
 myChart.data(newData);
-myChart.animate();
+myChart.reAnimate();
 ```
 
 
