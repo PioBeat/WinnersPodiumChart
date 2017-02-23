@@ -10,13 +10,10 @@
  */
 var WinnersPodiumChart = (function () {
 
-    var _id = null;
-    var _mtArr;
-
     function WinnersPodiumChart($element) {
         this.rootDiv = $element;
 
-        _id = "#" + $element.attr("id");
+        this._id = "#" + $element.attr("id");
         // console.log("_id", _id);
 
         this._titleContainer = $("<div></div>").addClass("wpc-chart wpc-title").appendTo(this.rootDiv);
@@ -31,7 +28,7 @@ var WinnersPodiumChart = (function () {
         this._footerContainer = $("<div></div>").addClass("wpc-chart wpc-footer").appendTo(this.rootDiv);
 
         this._childs = [];
-
+        this._mtArr = []; // array which holds the margin-top values for the animation of each column
         this._maximum = 0;
         this._minimum = 0;
 
@@ -115,7 +112,7 @@ var WinnersPodiumChart = (function () {
 
         var w = Math.floor(100.0 / n + 0.5); // 100 = 100%
 
-        _mtArr = [];
+        this._mtArr = [];
         this._data.map(function (obj, i) {
             var d = $("<div></div>");
             $(d).attr("data-name", obj.name).attr("data-value", obj.value);
@@ -142,7 +139,7 @@ var WinnersPodiumChart = (function () {
 
             $(d).appendTo(self._innerStepContainer);
             self._childs.push(d);
-            _mtArr.push(mt);
+            self._mtArr.push(mt);
 
             var dn = $("<div class='names'></div>");
             var objToFind = $.grep(self._data, function (e) {
@@ -166,17 +163,18 @@ var WinnersPodiumChart = (function () {
      * The order of animation is as follows: columns, trophy, footer.
      */
     WinnersPodiumChart.prototype.animate = function () {
+        var self = this;
         anime({
-            targets: _id + " div.wpc-podium-column",
+            targets: self._id + " div.wpc-podium-column",
             easing: "easeOutElastic",
             'margin-top': function (el, index) {
-                return _mtArr[index];
+                return self._mtArr[index];
             },
             delay: function (el, index) {
                 return index * 145;
             },
             complete: function () {
-                animateTrophy();
+                animateTrophy(self._id);
             },
             loop: false
         });
@@ -195,16 +193,16 @@ var WinnersPodiumChart = (function () {
     /**
      * helper function to animate the trophy above the chart
      */
-    function animateTrophy() {
-        $(_id + " .trophy").css("opacity", "1");
-        var fc = $(_id + " > .wpc-footer");
+    function animateTrophy(id) {
+        $(id + " .trophy").css("opacity", "1");
+        var fc = $(id + " > .wpc-footer");
         anime({
-            targets: _id + " .trophy",
+            targets: id + " .trophy",
             scale: 0.8,
             easing: "easeOutBounce",
             direction: "both",
             complete: function () {
-                animateFooter(fc);
+                animateFooter(fc, id);
             }
         })
     }
@@ -213,10 +211,10 @@ var WinnersPodiumChart = (function () {
      * helper function to animate the footer
      * @param fc
      */
-    function animateFooter(fc) {
+    function animateFooter(fc, id) {
         fc.css("display", "block");
         anime({
-            targets: _id + ' .wpc-footer > .names',
+            targets: id + ' .wpc-footer > .names',
             translateX: 100 + "px",
             opacity: [1, 0],
             // scale: [.75, .9],
