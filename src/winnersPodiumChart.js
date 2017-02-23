@@ -46,7 +46,7 @@ var WinnersPodiumChart = (function () {
         if (arguments.length == 0) {
             return this._data;
         }
-        this._data = _;
+        this._data = $.extend(true, [], _);
         this.invalidateData();
     };
 
@@ -109,7 +109,6 @@ var WinnersPodiumChart = (function () {
 
         // number of columns to draw
         var n = this._data.length;
-
         var w = Math.floor(100.0 / n + 0.5); // 100 = 100%
 
         this._mtArr = [];
@@ -151,7 +150,7 @@ var WinnersPodiumChart = (function () {
 
             dn.appendTo(self._footerContainer);
         });
-        var imgTrophy = $("<img/>").attr("src", this._icon).width((w + 1 / n) / 2 + "%").addClass("trophy");
+        var imgTrophy = $("<img/>").attr("src", this._icon).width((w + 1 / n) / 2 + "%").addClass("trophy").css("transform", "scale(1.2)");
         imgTrophy.appendTo(this._titleContainer);
 
 
@@ -178,6 +177,30 @@ var WinnersPodiumChart = (function () {
             },
             loop: false
         });
+    };
+
+    /**
+     * Resets all animation properties and class the animate method again
+     */
+    WinnersPodiumChart.prototype.reAnimate = function () {
+        var self = this;
+
+        //hide trophy
+        $(this._titleContainer).find(".trophy").css("opacity", "0").css("transform", "scale(1.2)");
+
+        // hide footer
+        $(this._id).find(".wpc-footer").css("display", "none");
+        $(this._id).find(".wpc-footer > .names").css("opacity", "0");
+
+        //reset columns
+        var h = this._innerStepContainer.height();
+        $(this._id).find('div.wpc-podium-column').map(function (i, obj) {
+            var newHeight = self._data[i].valueNorm;
+            $(obj).css("height", newHeight + "px");
+            $(obj).css("margin-top", h + "px");
+        });
+
+        this.animate();
     };
 
     /**
