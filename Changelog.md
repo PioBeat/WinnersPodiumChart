@@ -5,6 +5,7 @@
 - provide example to start animation if page scroll is showing the div containing the chart
 
 # [0.5-beta-1] 2017-02-23
+- Colour setting is now working
 - animation of chart can be reset (all animation properties are reset)
 - chart class works now with multiple instances on different div containers
     - problem with static id member variables in class

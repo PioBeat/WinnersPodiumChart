@@ -15,7 +15,7 @@
 
 <button id="btn">ReAnimate</button>
 
-<div id="container" style="height: 300px; width: 50%;"></div>
+<div id="container" style="height: 250px; width: 50%; margin: 0 auto;"></div>
 
 <script type="text/javascript">
 
@@ -38,6 +38,7 @@
 
         var myChart = new WinnersPodiumChart($('#container'));
         myChart.data(data);
+        myChart.colours(["#fabd3f", "#6cbec2", "#4cbf7a"]);
         myChart.draw();
 
         $("#btn").click(function () {

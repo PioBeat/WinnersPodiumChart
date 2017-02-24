@@ -59,7 +59,7 @@ var WinnersPodiumChart = (function () {
         if (arguments.length == 0) {
             return this._colours;
         }
-        _colours = _;
+        this._colours = _;
     };
 
     WinnersPodiumChart.prototype.icon = function (_) {
