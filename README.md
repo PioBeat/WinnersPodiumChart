@@ -1,6 +1,6 @@
 # WinnersPodiumChart
 
-**Version 0.5-beta-1**
+**Current Version: 0.5-beta-2**
 
 *WinnersPodiumChart* is a tiny JavaScript library to display highscore statistics in a fun way.
 It can be used to display the winners for the first, second, and third place.

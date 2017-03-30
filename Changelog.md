@@ -4,6 +4,9 @@
 - enable/disable numbers in footer beside names
 - provide example to start animation if page scroll is showing the div containing the chart
 
+# [0.5-beta-2] 2017-03-30
+- Fix for the layout if all values have the same value
+
 # [0.5-beta-1] 2017-02-23
 - Colour setting is now working
 - animation of chart can be reset (all animation properties are reset)
