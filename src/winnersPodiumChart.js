@@ -3,7 +3,7 @@
  *
  * MIT License
  *
- * Version: 0.5-beta-1
+ * Version: 0.5-beta-2
  *
  * Dominik Grzelak
  * Copyright 2017
@@ -96,10 +96,17 @@ var WinnersPodiumChart = (function () {
         var h = this._innerStepContainer.height();
         var b = h;
         var a = h * 0.35;
+        var coeff = self._maximum - self._minimum;
+        if(coeff === 0) {
+            coeff = 1;
+            a = b;
+        }
         this._data = $.map(this._data, function (elem, ix) {
-            elem.valueNorm = ((elem.value - self._minimum) / (self._maximum - self._minimum)) * (b - a) + a;
+            elem.valueNorm = ((elem.value - self._minimum) / coeff) * (b - a) + a;
             return elem;
         });
+        console.log("this.maxmin", this._maximum, this._minimum);
+        console.log("this._data", this._data);
     };
 
     WinnersPodiumChart.prototype.draw = function () {
