@@ -109,6 +109,9 @@ myChart.data(newData);
 myChart.reAnimate();
 ```
 
+## Examples
+
+* [Offbeat Math](http://mathe-app.offbeat-pioneer.net)
 
 ## Resources
 The following resources were used:
