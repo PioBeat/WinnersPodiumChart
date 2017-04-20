@@ -118,3 +118,9 @@ The following resources were used:
 <ul>
 <li> Icons used: <a href="http://www.freepik.com">Designed by Freepik</a> </li>
 </ul>
+
+## Websites using the <i>winnersPodiumChart</i>
+
+<p>( feel free to send me your website using this component! :) )</p>
+
+* [Offbeat Math](http://mathe-app.offbeat-pioneer.net/)
